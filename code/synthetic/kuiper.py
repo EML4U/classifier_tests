@@ -1,6 +1,6 @@
 import numpy as np
 from numpy import copy, sort, amax, arange, exp, sqrt, abs, floor, searchsorted
-from scipy.misc import factorial, comb
+from scipy.special import factorial, comb
 import itertools
 
 def kuiper_FPP(D,N):

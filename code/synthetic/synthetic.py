@@ -13,12 +13,8 @@ from sklearn.preprocessing import scale
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 
-if (sklearn.__version__ == '0.19.dev0'):
-  from sklearn.model_selection import GridSearchCV
-  from sklearn.model_selection import train_test_split
-else:
-  from sklearn.grid_search import GridSearchCV
-  from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split
 
 from scipy.stats import ks_2samp, ranksums
 from scipy.stats import norm, binom
@@ -98,38 +94,38 @@ def gen_sinusoid(n,f,v):
 for testi in tests.keys():
   test = tests[testi]['foo']
   for n in n_grid:
-      for rep in xrange(reps):
+      for rep in range(reps):
           p, q = np.random.randn(n), np.random.randn(n)
           t = test(p,q)
           print('%d type1_n %d 1 -1 %f %f %d' % (testi, n, t[0], t[1], t[1] > alpha))
   
   for n in n_grid:
-      for rep in xrange(reps):
+      for rep in range(reps):
           p, q = gen_student(n, df_default)
           t = test(p,q)
           print('%d student_n %d 1 %d %f %f %d' % (testi, n, df_default, t[0], t[1], t[1] <= alpha))
  
   for df in df_grid:
-      for rep in xrange(reps):
+      for rep in range(reps):
           p, q = gen_student(n_default, df)
           t = test(p,q)
           print('%d student_df %d 1 %d %f %f %d' % (testi, n_default, df, t[0], t[1], t[1] <= alpha))
  
   if (tests[testi]['maxdim'] > 1):
       for n in n_grid:
-          for rep in xrange(reps):
+          for rep in range(reps):
               p, q = gen_sinusoid(n,f_default,v_default)
               t = test(p,q)
               print('%d sinusoid_n %d %d %f %f %f %d' % (testi, n, f_default, v_default, t[0], t[1], t[1] <= alpha))
   
       for f in f_grid:
-          for rep in xrange(reps):
+          for rep in range(reps):
               p, q = gen_sinusoid(n_default,f,v_default)
               t = test(p,q)
               print('%d sinusoid_f %d %f %f %f %f %d' % (testi, n_default, f, v_default, t[0], t[1], t[1] <= alpha))
   
       for v in v_grid:
-          for rep in xrange(reps):
+          for rep in range(reps):
               p, q = gen_sinusoid(n_default,f_default,v)
               t = test(p,q)
               print('%d sinusoid_v %f %f %f %f %f %d' % (testi, n_default, f_default, v, t[0], t[1], t[1] <= alpha))
